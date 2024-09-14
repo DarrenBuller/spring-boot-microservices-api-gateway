@@ -1,0 +1,1 @@
+GET http://apigateway:9000/api/product
