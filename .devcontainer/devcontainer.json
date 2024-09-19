@@ -1,9 +1,15 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/java
 {
-	"name": "ApiGatewayJava",
+	"name": "devcontainer",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	// "image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
 	"image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+	"initializeCommand": "docker network inspect microservice_shared_network > /dev/null || docker network create microservice_shared_network --attachable",
+	"runArgs": [
+		"--network=microservice_shared_network",
+		"--hostname=apigateway"
+	],
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
 			"version": "none",
@@ -19,11 +25,6 @@
 			"dockerDashComposeVersion": "latest"
 		}
 	},
-	"initializeCommand": "docker network inspect microservice_shared_network > /dev/null || docker network create microservice_shared_network --attachable",
-	"runArgs": [
-		"--network=microservice_shared_network",
-		"--hostname=apigateway"
-	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
@@ -43,7 +44,8 @@
 				"vmware.vscode-boot-dev-pack",
 				"vscjava.vscode-java-pack",
 				"formulahendry.vscode-mysql",
-				"humao.rest-client"
+				"humao.rest-client",
+				"Postman.postman-for-vscode"
 			]
 		}
 	}

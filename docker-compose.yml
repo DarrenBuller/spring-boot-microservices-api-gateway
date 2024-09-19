@@ -1,7 +1,24 @@
 services:
-  my-keycloak:
-    image: quay.io/keycloak/keycloak:24.0
+  ## Keycloak Config with Mysql database
+  keycloak-mysql:
+    container_name: keycloak-mysql
+    image: mysql:5.7
+    volumes:
+      - ./mysql_keycloak_data:/var/lib/mysql
     environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+
+  my-keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
       KC_HOSTNAME: localhost
       KC_HOSTNAME_PORT: 7080
       KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
@@ -18,8 +35,7 @@ services:
     ports:
       - "7080:7080"
       - "7443:7443"
-    networks:
-      - microservice_shared_network
-networks:
-  microservice_shared_network:
-    driver: bridge
+    volumes:
+      - ./realms/:/opt/keycloak/data/import/
+    depends_on:
+      - keycloak-mysql
