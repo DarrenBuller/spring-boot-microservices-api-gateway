@@ -1,5 +1,5 @@
 @product_host=product:8080
-@apigateway_host=apigateway:9000
+@apigateway_host=localhost:9000
 ### test product direct
 GET http://{{product_host}}/api/product
 
