@@ -1,4 +1,5 @@
-@product_host=product:8080
+@product_host=localhost:8080
+@inventory_host=localhost:8082
 @apigateway_host=localhost:9000
 ### test product direct
 GET http://{{product_host}}/api/product
@@ -8,7 +9,7 @@ GET http://{{apigateway_host}}/api/product
 
 
 ### Test Inventory direct
-GET http://inventory:8082/api/inventory?skuCode=iphone_15&quantity=10 HTTP/1.1
+GET http://{{inventory_host}}/api/inventory?skuCode=iphone_15&quantity=10 HTTP/1.1
 
 
 ### Test Inventory via gateway

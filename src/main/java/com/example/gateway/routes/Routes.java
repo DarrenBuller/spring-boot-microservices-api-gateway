@@ -67,7 +67,7 @@ public class Routes {
         public RouterFunction<ServerResponse> inventoryServiceSwaggerRoute() {
                 return route("inventory_service_swagger")
                                 .route(RequestPredicates.path("/aggregate/inventory-service/v3/api-docs"),
-                                                HandlerFunctions.http("http://inventory:8082"))
+                                                HandlerFunctions.http("http://localhost:8082"))
                                 .filter(setPath("/api-docs"))
                                 .build();
         }
